@@ -23,11 +23,12 @@
  */
 package jenkins.plugins.mrbayes;
 
-import jenkins.plugins.mrbayes.util.Messages;
 import hudson.CopyOnWrite;
-import hudson.model.Descriptor;
-import hudson.tasks.Builder;
+import hudson.model.AbstractProject;
+import hudson.tasks.BuildStepDescriptor;
+import hudson.tasks.Publisher;
 import hudson.util.FormValidation;
+import jenkins.plugins.mrbayes.util.Messages;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,26 +36,30 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
 /**
- * Descriptor of MrBayes builder.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 0.1
- * @see {@link MrBayesBuilder}
  */
-public class MrBayesBuilderDescriptor extends Descriptor<Builder> {
+public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 
-	public final Class<MrBayesBuilder> builderType = MrBayesBuilder.class;
-	
-	private static final String DISPLAY_NAME = Messages.MrBayesDescriptor_DisplayName();
+	private static final String DISPLAY_NAME = "Use FigTree to generate tree graphics";
 	
 	@CopyOnWrite
-	private volatile MrBayesInstallation[] installations = new MrBayesInstallation[0];
+	private volatile FigTreeInstallation[] installations = new FigTreeInstallation[0];
 	
-	public MrBayesBuilderDescriptor() {
-		super(MrBayesBuilder.class);
+	public FigTreePublisherDescriptor() {
+		super(FigTreePublisher.class);
 		load();
 	}
 	
+	/* (non-Javadoc)
+	 * @see hudson.tasks.BuildStepDescriptor#isApplicable(java.lang.Class)
+	 */
+	@Override
+	public boolean isApplicable(Class<? extends AbstractProject> jobType) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	/* (non-Javadoc)
 	 * @see hudson.model.Descriptor#getDisplayName()
 	 */
@@ -63,13 +68,13 @@ public class MrBayesBuilderDescriptor extends Descriptor<Builder> {
 		return DISPLAY_NAME;
 	}
 	
-	public MrBayesInstallation[] getInstallations() {
+	public FigTreeInstallation[] getInstallations() {
 		return this.installations;
 	}
 	
-	public MrBayesInstallation getInstallationByName(String name) {
-		MrBayesInstallation found = null;
-		for(MrBayesInstallation installation : this.installations) {
+	public FigTreeInstallation getInstallationByName(String name) {
+		FigTreeInstallation found = null;
+		for(FigTreeInstallation installation : this.installations) {
 			if (StringUtils.isNotEmpty(installation.getName())) {
 				if(name.equals(installation.getName())) {
 					found = installation;
@@ -86,7 +91,7 @@ public class MrBayesBuilderDescriptor extends Descriptor<Builder> {
 	@Override
 	public boolean configure(StaplerRequest req, JSONObject json)
 			throws hudson.model.Descriptor.FormException {
-		this.installations = req.bindParametersToList(MrBayesInstallation.class, "MrBayes.").toArray(new MrBayesInstallation[0]);
+		this.installations = req.bindParametersToList(FigTreeInstallation.class, "MrBayes.").toArray(new FigTreeInstallation[0]);
 		save();
 		return Boolean.TRUE;
 	}
@@ -94,9 +99,9 @@ public class MrBayesBuilderDescriptor extends Descriptor<Builder> {
 	public FormValidation doRequired(@QueryParameter String value) {
 		FormValidation returnValue = FormValidation.ok();
 		if(StringUtils.isBlank(value)) {
-			returnValue = FormValidation.error(Messages.MrBayesDescriptor_Required());
+			returnValue = FormValidation.error("Required field.");
 		}
 		return returnValue;
 	}
-	
+
 }

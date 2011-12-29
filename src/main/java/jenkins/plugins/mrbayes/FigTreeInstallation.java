@@ -25,37 +25,19 @@ package jenkins.plugins.mrbayes;
 
 import java.io.Serializable;
 
-import org.kohsuke.stapler.DataBoundConstructor;
-
 /**
- * Stores information about the installation of MrBayes. This information is 
- * used by the Builder to call MrBayes. This information is stored within a 
- * Descriptor that is, by its turn, used in the Builder.
- * 
  * @author Bruno P. Kinoshita - http://www.kinoshita.eti.br
  * @since 0.1
  */
-public class MrBayesInstallation implements Serializable {
+public class FigTreeInstallation implements Serializable {
 
-	private static final long serialVersionUID = 6977811573310920020L;
+	private static final long serialVersionUID = 1913981335759365135L;
 
-	/**
-	 * A name for a MrBayes installation. This name is referenced in the Job 
-	 * set up.
-	 */
 	private final String name;
 	
-	/**
-	 * Path to MrBayes.
-	 */
 	private final String pathToExecutable;
 	
-	/**
-	 * @param name the name for a MrBayes installation
-	 * @param pathToExecutable the path for a MrBayes executable 
-	 */
-	@DataBoundConstructor
-	public MrBayesInstallation(String name, String pathToExecutable) {
+	public FigTreeInstallation(String name, String pathToExecutable) {
 		this.name = name;
 		this.pathToExecutable = pathToExecutable;
 	}
