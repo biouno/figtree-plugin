@@ -11,13 +11,13 @@
 
 	<inceptionYear>2011</inceptionYear>
 
-	<artifactId>mrbayes</artifactId>
-	<name>Jenkins MrBayes Plugin</name>
+	<artifactId>figtree</artifactId>
+	<name>Jenkins FigTree Plugin</name>
 	<version>0.1-SNAPHOST</version>
 	<packaging>hpi</packaging>
-	<description>This plug-in integrates Jenkins to MrBayes</description>
+	<description>This plug-in integrates Jenkins to FigTree</description>
 
-	<url>http://wiki.jenkins-ci.org/display/JENKINS/MrBayes+Plugin</url>
+	<url>http://wiki.jenkins-ci.org/display/JENKINS/FigTree+Plugin</url>
 
 	<organization>
 		<name>Jenkins</name>
@@ -26,7 +26,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<biojava.legacy.version>1.8.2-SNAPSHOT</biojava.legacy.version>
 	</properties>
 
 	<developers>
@@ -159,42 +158,19 @@
 			<groupId>commons-lang</groupId>
 			<version>2.5</version>
 		</dependency>
-		<!-- biojava-legacy modified version -->
 		<dependency>
-			<groupId>org.biojava</groupId>
-			<artifactId>bytecode</artifactId>
-			<version>${biojava.legacy.version}</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/bytecode-${biojava.legacy.version}.jar</systemPath>
-		</dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.1</version>
+        </dependency>
+		<!-- figtree -->
 		<dependency>
-			<groupId>org.biojava</groupId>
-			<artifactId>core</artifactId>
-			<version>${biojava.legacy.version}</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/core-${biojava.legacy.version}.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.biojava</groupId>
-			<artifactId>alignment</artifactId>
-			<version>${biojava.legacy.version}</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/alignment-${biojava.legacy.version}.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.biojava</groupId>
-			<artifactId>biojava3-phylo</artifactId>
-			<version>${biojava.legacy.version}</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/phylo-${biojava.legacy.version}.jar</systemPath>
-		</dependency>
-		<!-- test -->
-		<dependency>
-			<groupId>org.jgrapht</groupId>
-			<artifactId>jgrapht-jdk1.5</artifactId>
-			<version>0.7.3</version>
-			<scope>test</scope>
-		</dependency>
+            <groupId>figtree</groupId>
+            <artifactId>figtree</artifactId>
+            <version>1.3.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/figtree-1.3.1.jar</systemPath>
+        </dependency>
 	</dependencies>
 
 	<repositories>

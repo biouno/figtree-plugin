@@ -21,14 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package jenkins.plugins.mrbayes;
+package jenkins.plugins.figtree;
 
-import hudson.CopyOnWrite;
 import hudson.model.AbstractProject;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.Publisher;
 import hudson.util.FormValidation;
-import jenkins.plugins.mrbayes.util.Messages;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -41,10 +39,7 @@ import org.kohsuke.stapler.StaplerRequest;
  */
 public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 
-	private static final String DISPLAY_NAME = "Use FigTree to generate tree graphics";
-	
-	@CopyOnWrite
-	private volatile FigTreeInstallation[] installations = new FigTreeInstallation[0];
+	public static final String DISPLAY_NAME = "Use FigTree to generate tree graphics";
 	
 	public FigTreePublisherDescriptor() {
 		super(FigTreePublisher.class);
@@ -57,7 +52,7 @@ public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 	@Override
 	public boolean isApplicable(Class<? extends AbstractProject> jobType) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -68,30 +63,12 @@ public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 		return DISPLAY_NAME;
 	}
 	
-	public FigTreeInstallation[] getInstallations() {
-		return this.installations;
-	}
-	
-	public FigTreeInstallation getInstallationByName(String name) {
-		FigTreeInstallation found = null;
-		for(FigTreeInstallation installation : this.installations) {
-			if (StringUtils.isNotEmpty(installation.getName())) {
-				if(name.equals(installation.getName())) {
-					found = installation;
-					break;
-				}
-			}
-		}
-		return found;
-	}
-	
 	/* (non-Javadoc)
 	 * @see hudson.model.Descriptor#configure(org.kohsuke.stapler.StaplerRequest, net.sf.json.JSONObject)
 	 */
 	@Override
 	public boolean configure(StaplerRequest req, JSONObject json)
 			throws hudson.model.Descriptor.FormException {
-		this.installations = req.bindParametersToList(FigTreeInstallation.class, "MrBayes.").toArray(new FigTreeInstallation[0]);
 		save();
 		return Boolean.TRUE;
 	}

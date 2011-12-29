@@ -1,0 +1,3 @@
+<img width="16" height="16"
+     title="${it.tooltip}" alt="[figtree]"
+     src="${rootURL}${it.icon}"/>

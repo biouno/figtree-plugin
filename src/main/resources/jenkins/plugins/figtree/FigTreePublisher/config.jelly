@@ -1,0 +1,24 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+
+	<f:entry title="${%Tree file pattern}"
+	   help="${rootURL}/../plugin/figtree/help-nexusFile.html">
+        <f:textbox name="FigTree.treeFilePattern" value="${instance.treeFilePattern}" 
+              checkUrl="'${rootURL}/publisher/FigTreePublisher/required?value='+escape(this.value)" />
+    </f:entry>
+    
+    <f:advanced>     
+   
+      <f:entry title="${%Width}"
+       help="${rootURL}/../plugin/figtree/help-nexusFile.html">
+        <f:textbox name="FigTree.width" value="${instance.width}" />
+      </f:entry>
+    
+      <f:entry title="${%Height}"
+       help="${rootURL}/../plugin/figtree/help-nexusFile.html">
+        <f:textbox name="FigTree.height" value="${instance.height}" />
+      </f:entry>
+      
+    </f:advanced>
+
+</j:jelly>
