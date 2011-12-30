@@ -1,0 +1,23 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
+  
+  <script type="text/javascript" src="${rootURL}/plugin/figtree/js/prototype.js"></script>
+  <script type="text/javascript" src="${rootURL}/plugin/figtree/js/scriptaculous.js?load=effects,builder"></script>
+  <script type="text/javascript" src="${rootURL}/plugin/figtree/js/lightbox.js"></script>
+  <link rel="stylesheet" href="${rootURL}/plugin/figtree/css/lightbox.css" type="text/css" media="screen" />
+  
+  <table style="margin-top: 1em; margin-left:1em;">
+    <tbody>
+        <tr>
+            <td>
+                <a><img height="48" style="margin-right:1em" alt="" width="48" src="${it.ICON_FILE_NAME}" /></a>
+            </td>
+            <td style="vertical-align:middle">
+                <a>${%FigTree Results}.</a>
+            </td>
+        </tr> 
+    </tbody>
+  </table>
+  
+  ${it.graphics}
+  
+</j:jelly>

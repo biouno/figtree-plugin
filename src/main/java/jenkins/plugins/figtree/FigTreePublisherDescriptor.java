@@ -51,8 +51,7 @@ public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 	 */
 	@Override
 	public boolean isApplicable(Class<? extends AbstractProject> jobType) {
-		// TODO Auto-generated method stub
-		return true;
+		return Boolean.TRUE;
 	}
 
 	/* (non-Javadoc)
@@ -70,7 +69,7 @@ public class FigTreePublisherDescriptor extends BuildStepDescriptor<Publisher> {
 	public boolean configure(StaplerRequest req, JSONObject json)
 			throws hudson.model.Descriptor.FormException {
 		save();
-		return Boolean.TRUE;
+        return super.configure(req, json);
 	}
 	
 	public FormValidation doRequired(@QueryParameter String value) {

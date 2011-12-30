@@ -1,18 +1,33 @@
+/*
+ * The MIT License
+ *
+ * Copyright (c) <2011> <Bruno P. Kinoshita>
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package jenkins.plugins.figtree;
 
-import hudson.model.Action;
-import hudson.model.AbstractBuild;
+import hudson.model.ProminentProjectAction;
 import hudson.model.AbstractProject;
 
-import java.io.IOException;
+	public class FigTreeProjectAction implements ProminentProjectAction {
 
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
-
-public class FigTreeProjectAction implements Action {
-
-	public static final String ICON_FILE_NAME = "/plugin/figtree/icons/figtree-40.png";
-	public static final String URL_NAME = "figTreeResult";
 	private final AbstractProject<?, ?> project;
 	
 	public FigTreeProjectAction(AbstractProject<?, ?> project) {
@@ -24,64 +39,15 @@ public class FigTreeProjectAction implements Action {
 	}
 	
 	public String getDisplayName() {
-		return "FigTree";
+		return "";
 	}
 
 	public String getIconFileName() {
-		return ICON_FILE_NAME;
+		return null;
 	}
 
 	public String getUrlName() {
-		return URL_NAME;
-	}
-	
-	/**
-	 * 
-	 * Show CCM html report f the latest build. If no builds are associated 
-	 * with CCM , returns info page.
-	 * 
-	 * @param req
-	 *            Stapler request
-	 * @param res
-	 *            Stapler response
-	 * @throws IOException
-	 *             in case of an error
-	 */
-	public void doIndex( final StaplerRequest req, final StaplerResponse res ) 
-	throws IOException
-	{
-		AbstractBuild<?, ?> lastBuild = getLastBuildWithFigTree();
-		if (lastBuild == null)
-		{
-			res.sendRedirect2("nodata");
-		}
-		else 
-		{
-			int buildNumber = lastBuild.getNumber();
-			res.sendRedirect2( String.format("../%d/%s", buildNumber,
-					"target") );
-		}
-	}
-	
-	/**
-	 * Retrieves the last build with FigTree in the project.
-	 * 
-	 * @return Last build with FigTree in the project or <code>null</code>.
-	 */
-	private AbstractBuild<?, ?> getLastBuildWithFigTree()
-	{
-		AbstractBuild<?, ?> lastBuild = (AbstractBuild<?, ?>) project.getLastBuild();
-		while (lastBuild != null
-				&& lastBuild.getAction( getBuildActionClass() ) == null)
-		{
-			lastBuild = lastBuild.getPreviousBuild();
-		}
-		return lastBuild;
-	}
-	
-	protected Class<FigTreeBuildAction> getBuildActionClass()
-	{
-		return FigTreeBuildAction.class;
+		return "";
 	}
 	
 }

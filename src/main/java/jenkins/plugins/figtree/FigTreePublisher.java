@@ -36,6 +36,7 @@ import hudson.model.AbstractProject;
 import hudson.remoting.VirtualChannel;
 import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
+import hudson.tasks.Publisher;
 import hudson.tasks.Recorder;
 
 import java.io.File;
@@ -122,7 +123,9 @@ public class FigTreePublisher extends Recorder {
 			return Boolean.TRUE;
 		}
 		
-		build.addAction(new FigTreeBuildAction());
+		final FigTreeBuildAction figTreeBuildAction = new FigTreeBuildAction();
+		
+		build.addAction(figTreeBuildAction);
 		
 		final FilePath workspace = build.getWorkspace();
 		
@@ -150,10 +153,12 @@ public class FigTreePublisher extends Recorder {
 					for(final String treeFile : treeFiles) {
 						listener.getLogger().println("Processing tree [" + treeFile + "].");
 						final String fullTreeFilePath = new File(file, treeFile).getAbsolutePath();
-						String rawName = FilenameUtils.removeExtension(fullTreeFilePath);
-						String graphic = rawName + ".gif";
-						FigTreeApplication.createGraphic("GIF", width, height, fullTreeFilePath, graphic);
+						final String rawName = FilenameUtils.removeExtension(treeFile);
+						final String graphic = rawName + ".gif";
+						final String output = new File(file, graphic).getAbsolutePath();
+						FigTreeApplication.createGraphic("GIF", width, height, fullTreeFilePath, output);
 						listener.getLogger().println("Created graphic ["+graphic+"]. width: "+width+", height: " + height);
+						figTreeBuildAction.addFigTreeGraphicLink(graphic);
 					}
 				}
 				return null;
@@ -180,10 +185,9 @@ public class FigTreePublisher extends Recorder {
 	 * 
 	 * @see hudson.tasks.Recorder#getDescriptor()
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public BuildStepDescriptor getDescriptor() {
-		return (FigTreePublisherDescriptor) super.getDescriptor();
+	public BuildStepDescriptor<Publisher> getDescriptor() {
+		return DESCRIPTOR;
 	}
 
 	protected String[] scan(final File directory, final String includes,
